@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ReadTaskComponent } from './read-task.component';
+import { ListTaskComponent } from './list-task.component';
 
 describe('ReadTaskComponent', () => {
-  let component: ReadTaskComponent;
-  let fixture: ComponentFixture<ReadTaskComponent>;
+  let component: ListTaskComponent;
+  let fixture: ComponentFixture<ListTaskComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ReadTaskComponent ]
+      declarations: [ ListTaskComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ReadTaskComponent);
+    fixture = TestBed.createComponent(ListTaskComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
