@@ -1,0 +1,69 @@
+<div (click)="editing = true">
+  <table>
+    <tbody>
+      <tr *ngFor="let task of userTasks">
+        <td>
+          <input type="checkbox" [checked]="task.status" (change)="updateTask(task, $event)">
+        </td>
+        <td>
+          <div *ngIf="!editing">{{ task.description }}</div>
+          <div *ngIf="editing"><input type="text" [(ngModel)]="task.description"
+              (blur)="updateTask(task, $event); editing=false"></div>
+        </td>
+        <td>{{ task.date }}</td>
+        <td>
+          <button (click)="deleteTask(task)">Delete</button>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="4">
+          <button (click)="showNewTaskForm()">+</button>
+          <div *ngIf="showForm">
+            <form #taskForm="ngForm">
+              <div class="form-group">
+                <input placeholder="Description" type="text" id="description" name="description"
+                  [(ngModel)]="newTask.description" maxlength="255" required class="form-control" required>
+              </div>
+              <button (click)="addNewTask()" class="btn btn-primary">Add</button>
+              <button (click)="hideNewTaskForm()" class="btn btn-secondary">Cancel</button>
+            </form>
+          </div>
+        </td>
+      </tr>
+      <!-- <tr *ngIf="showForm">
+        <td colspan="4">
+          <form #taskForm="ngForm">
+            <div class="form-group">
+              <label for="description">Description:</label>
+              <input type="text" id="description" name="description" [(ngModel)]="newTask.description" maxlength="255" required
+                class="form-control" required>
+            </div>
+            <button (click)="addNewTask()" class="btn btn-primary">Add</button>
+            <button (click)="hideNewTaskForm()" class="btn btn-secondary">Cancel</button>
+          </form>
+        </td>
+      </tr> -->
+    </tbody>
+  </table>
+</div>
+<!-- <div id="newTaskModal" class="modal">
+  <div class="modal-content">
+    <span class="close" (click)="closeNewTaskModal()">&times;</span>
+    <h2>Add New Task</h2>
+    <label for="description">Description:</label>
+    <input type="text" id="description" name="description" [(ngModel)]="newTask.description" maxlength="255"><br><br>
+    <label for="date">Date:</label>
+    <input type="datetime-local" id="date" name="date" [(ngModel)]="newTask.date"><br><br>
+    <button (click)="addNewTask()">Add</button>
+    <button (click)="closeNewTaskModal()">Cancel</button>
+  </div>
+</div> -->
+<!-- <form #taskForm="ngForm">
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <input type="text" id="description" name="description" [(ngModel)]="newTask.description" maxlength="255" required
+        class="form-control" required>
+    </div>
+    <button (click)="addNewTask()" class="btn btn-primary">Add</button>
+    <button (click)="hideNewTaskForm()" class="btn btn-secondary">Cancel</button>
+  </form> -->

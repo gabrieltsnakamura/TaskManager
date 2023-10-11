@@ -4,20 +4,19 @@ import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { CreateTaskComponent } from './create-task/create-task.component';
-import { ListTaskComponent } from './list-task/list-task.component';
-import { UpdateTaskComponent } from './update-task/update-task.component';
-import { DeleteTaskComponent } from './delete-task/delete-task.component';
+import { HomeComponent } from './components/home/home.component';
 import { HttpClientModule } from '@angular/common/http';
+import { TaskComponent } from './components/task/task.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    CreateTaskComponent,
-    ListTaskComponent,
-    UpdateTaskComponent,
-    DeleteTaskComponent
+    HomeComponent,
+    TaskComponent
   ],
+  exports: [
+    HomeComponent
+  ],  
   imports: [
     BrowserModule,
     AppRoutingModule,
