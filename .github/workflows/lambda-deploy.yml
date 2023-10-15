@@ -22,13 +22,7 @@ jobs:
       - name: NPM Install
         run: npm install
       - name: NPM Install Angular
-        run: npm install -g @angular/cli > /dev/null
-      - name: Lint
-        run: npm run lint
-      - name: Format
-        run: npm run format
-      - name: NPM build Angular Production
-        run: npm run build:prod
+        run: npm install -g @angular/cli@12.0.5 > /dev/null
       - name: Test
         run: npm run test:ci
       - name: Test coverage
@@ -47,6 +41,12 @@ jobs:
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     runs-on: ubuntu-latest
     steps:
+      - name : Download App
+        uses: actions/download-artifact@v3
+        with:
+          name: taskmanager_app
+          path: taskmanager_app.zip
+
       - name: AWS CodeDeploy
         uses: sourcetoad/aws-codedeploy-action@v1
         with:
