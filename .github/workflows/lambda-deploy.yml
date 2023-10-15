@@ -47,7 +47,6 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: taskmanager_app
-          path: taskmanager_app.zip
 
       - name: AWS CodeDeploy
         uses: sourcetoad/aws-codedeploy-action@v1
