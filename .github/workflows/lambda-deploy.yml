@@ -31,6 +31,8 @@ jobs:
         run: npm run test:ci:cov
       - name: Zip App
         run: zip -r taskmanager_app.zip dist/taskmanager
+      - name: Zip appsec
+        run: zip -r taskmanager_app.zip app_sec
 
       - name: Upload App
         uses: actions/upload-artifact@v3
@@ -59,3 +61,4 @@ jobs:
           s3_bucket: taskmanager-bucket
           s3_folder: bin
           archive: taskmanager_app.zip
+          directory: 
