@@ -1,0 +1,62 @@
+name: Deploy Application
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request_review:
+    types: [submitted]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: "14.20.0"
+      - name: NPM Install
+        run: npm install
+      - name: NPM Install Angular
+        run: npm install -g @angular/cli@12.0.5 > /dev/null
+      - name: NPM build Angular Production
+        run: npm run build:prod
+      - name: Test
+        run: npm run test:ci
+      - name: Test coverage
+        run: npm run test:ci:cov
+      - name: Zip App
+        run: zip -r taskmanager_app.zip dist/taskmanager
+
+      - name: Upload App
+        uses: actions/upload-artifact@v3
+        with:
+          name: taskmanager_app
+          path: taskmanager_app.zip
+
+  deploy:
+    needs: build
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    steps:
+      - name : Download App
+        uses: actions/download-artifact@v3
+        with:
+          name: taskmanager_app
+          path: taskmanager_app.zip
+
+      - name: AWS CodeDeploy
+        uses: sourcetoad/aws-codedeploy-action@v1
+        with:
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
+          aws_region: sa-east-1
+          codedeploy_name: task-manager-app
+          codedeploy_group: prod
+          s3_bucket: taskmanager-bucket
+          s3_folder: bin
+          archive: taskmanager_app.zip
