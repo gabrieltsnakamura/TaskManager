@@ -18,7 +18,7 @@ server {
         # First attempt to serve request as file, then
         # as directory, then fall back to displaying a 404.
         index index.html
-        try_files $uri $uri/ /index.html;
+        try_files \$uri \$uri/ /index.html;
     }
 
     error_page 404 /index.html;
