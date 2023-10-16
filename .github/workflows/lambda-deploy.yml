@@ -32,7 +32,7 @@ jobs:
       - name: Zip App
         run: |
          cd dist && zip -r ../taskmanager_app.zip . && cd ../
-         cd app_sec && zip ../taskmanager_app.zip appsec.yml
+         cd app_spec && zip ../taskmanager_app.zip appspec.yml
          zip -r ../taskmanager_app.zip scripts 
          
       - name: Upload App
